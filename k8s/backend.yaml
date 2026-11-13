@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudkart-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloudkart-backend
+  template:
+    metadata:
+      labels:
+        app: cloudkart-backend
+    spec:
+      containers:
+        - name: backend
+          image: sahilsarfaraz/cloudkart-backend:6
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudkart-backend
+spec:
+  selector:
+    app: cloudkart-backend
+  ports:
+    - port: 3000
+      targetPort: 3000
